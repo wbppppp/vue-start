@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>08_条件渲染</title>
+</head>
+<body>
+<!--
+1. 条件渲染指令
+  v-if
+  v-else
+  v-show
+2. 比较v-if与v-show
+  如果需要频繁切换 v-show 较好
+
+3.v-if和v-show的区别
+  v-if:不满足条件的元素在页面中是不存在的
+  v-show:不满足条件的元素只是通过display:none的方式来进行隐藏了
+-->
+
+<div id="demo">
+  <p v-if="ok">表白成功</p>
+  <p v-else>表白失败</p>
+
+  <hr>
+  <p v-show="ok">求婚成功</p>
+  <p v-show="!ok">求婚失败</p>
+
+  <button @click="ok=!ok">切换</button>
+
+  <div v-if="type === 'A'">
+    A
+  </div>
+  <div v-else-if="type === 'B'">
+    B
+  </div>
+  <div v-else-if="type === 'C'">
+    C
+  </div>
+  <div v-else>
+    Not A/B/C
+  </div>
+
+  <button @click="type='A'">A</button>
+  <button @click="type='B'">B</button>
+  <button @click="type='C'">C</button>
+
+</div>
+
+<script type="text/javascript" src="../js/vue.js"></script>
+<script type="text/javascript">
+  new Vue({
+    el: '#demo',
+    data: {
+      ok: true,
+      type: 'A'
+    }
+  })
+</script>
+</body>
+</html>
