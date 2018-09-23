@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Hello World</title>
+</head>
+<body>
+
+<!--
+    绑定数据的两种方式：
+        1.指令：v-xxx(v-model,v-bind...)
+        2.{{msg}}
+-->
+
+<div id="demo">
+    <p v-model="msg"></p>
+    <p>{{msg}}</p>
+</div>
+
+<script type="text/javascript" src="../js/vue.js"></script>
+<script type="text/javascript">
+    var vm = new Vue({
+        el: '#demo',  /*element，指明用vue来管理页面的哪个区域*/
+        data: {
+            msg: 'Hello World!!!'
+        }
+    })
+
+</script>
+
+</body>
+</html>
