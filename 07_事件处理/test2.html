@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>事件修饰符测试</title>
+</head>
+<body>
+
+<!--
+    .capture
+    .stop
+    .prevent
+    .once
+    .self
+
+-->
+
+<div id="demo">
+    <div @click="parent">parent
+        <div @click.self="child">child
+            <div @click="grandson">grandson</div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript" src="../js/vue.js"></script>
+<script type="text/javascript">
+    new Vue({
+        el: '#demo',
+        data: {
+
+        },
+        methods:{
+            parent(){
+                alert("parent")
+            },
+            child(){
+                alert("child")
+            },
+            grandson(e){
+                alert("grandson")
+            }
+        }
+    })
+
+
+</script>
+</body>
+</html>
