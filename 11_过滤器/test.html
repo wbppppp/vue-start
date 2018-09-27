@@ -32,10 +32,9 @@
 <script>
   // 定义过滤器
   Vue.filter('dateString', function (value, format='YYYY-MM-DD HH:mm:ss') {
-    //{{time | dateString}},会将time作为第一个参数传到过滤器中  
+    //{{time | dateString}},会将time作为第一个参数传到过滤器中
     return moment(value).format(format);
   })
-
 
   new Vue({
     el: '#test',
