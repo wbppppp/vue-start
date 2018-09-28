@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>12_指令_内置指令</title>
+  <style>
+    /*当页面加载数据时，若获取数据发生延迟，页面会出现{{msg}}
+      实际中可以发现：
+          vue指令在成功渲染数据以前在标签中是存在的，而当数据渲染完成以后，指令将不在标签中，
+          所以这里通过指令v-cloak来解决闪现问题
+    */
+    [v-cloak] { display: none }
+  </style>
+</head>
+<body>
+<!--
+常用内置指令
+  v:text : 更新元素的 textContent
+  v-html : 更新元素的 innerHTML
+  v-if : 如果为true, 当前标签才会输出到页面
+  v-else: 如果为false, 当前标签才会输出到页面
+  v-show : 通过控制display样式来控制显示/隐藏
+  v-for : 遍历数组/对象
+  v-on : 绑定事件监听, 一般简写为@
+  v-bind : 强制绑定解析表达式, 可以省略v-bind
+  v-model : 双向数据绑定
+  ref : 为某个元素注册一个唯一标识, vue对象通过$refs属性访问这个元素对象
+  v-cloak : 使用它防止闪现表达式, 与css配合: [v-cloak] { display: none }
+-->
+<div id="example">
+  <p v-cloak>{{content}}</p>
+  <p v-text="content"></p>   <!--p.textContent = content-->
+  <p v-html="content"></p>  <!--p.innerHTML = content-->
+
+
+  <!-- -->
+  <p v-for="(m, index) in msg" :key="index" ref="msg">{{m}}</p>
+  <p ref="msg2">123</p>
+  <p ref="msg2">456</p>
+
+  <button @click="hint">提示</button>
+</div>
+
+<script type="text/javascript" src="../js/vue.js"></script>
+<script type="text/javascript">
+  new Vue({
+    el: '#example',
+    data: {
+      content: '<a href="http://www.baidu.com">百度一下</a>',
+        msg: ['abc','def'],
+    },
+
+    /*关于 ref 注册时间的重要说明：
+            因为 ref 本身是作为渲染结果被创建的，在初始渲染的时候你不能访问它们 - 它们还不存在！
+        $refs 也不是响应式的，因此你不应该试图用它在模板中做数据绑定。
+
+      即说明：
+          this.$refs只有当元素成功被渲染以后才能够获取到（即mounted以后），否则都未undefined。另外，
+      如果ref有多个重复的，只有通过v-for渲染出的重复的才能通过this.$refs.msg获取到数组，否则只能取到
+      最后一个
+      */
+    created: function() {
+        console.log(this.$refs.msg) // undefined
+      },
+    mounted:function() {
+        console.log(this.$refs.msg) //[p,p]
+    },
+    methods: {
+      hint () {
+        console.log(this.$refs.msg[1].textContent);
+        console.log(this.$refs.msg2.innerHTML)
+      }
+    }
+  })
+</script>
+</body>
+</html>
